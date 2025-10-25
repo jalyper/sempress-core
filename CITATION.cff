@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Sempress: Semantic Compression for Numeric Tabular Data"
+authors:
+  - family-names: "Anderson"
+    given-names: "Keaton"
+    email: "research@sempress.net"
+repository-code: "https://github.com/jalyper/sempress"
+url: "https://sempress.net"
+keywords:
+  - compression
+  - data compression
+  - vector quantization
+  - tabular data
+  - machine learning
+  - semantic compression
+license: MIT
+version: 0.1.0
+date-released: 2025-01-01
+preferred-citation:
+  type: article
+  title: "Sempress: Semantic Compression for Numeric Tabular Data via Learned Vector Quantization"
+  authors:
+    - family-names: "Anderson"
+      given-names: "Keaton"
+  year: 2025
+  url: "https://sempress.net/paper.pdf"

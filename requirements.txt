@@ -1,0 +1,9 @@
+pandas>=2.2
+numpy>=1.26
+scikit-learn>=1.4
+click>=8.1
+msgpack>=1.0
+zstandard>=0.22
+scipy>=1.11
+fastapi>=0.110
+uvicorn>=0.24

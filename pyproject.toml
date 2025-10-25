@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sempress"
+version = "0.1.0"
+description = "Semantic compression MVP for tabular data"
+authors = [{name = "Keaton Anderson"}]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "pandas>=2.2",
+  "numpy>=1.26",
+  "scikit-learn>=1.4",
+  "click>=8.1",
+  "msgpack>=1.0",
+  "zstandard>=0.22",
+  "scipy>=1.11",
+  "fastapi>=0.110",
+  "uvicorn>=0.24"
+]
+
+[project.scripts]
+sempress = "sempress.cli:main"
+[tool.pytest.ini_options]
+addopts = "--json-report --json-report-file=logs/pytest-report.json"

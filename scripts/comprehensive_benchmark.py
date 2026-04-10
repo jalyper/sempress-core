@@ -163,28 +163,40 @@ def main():
                       help='Output JSON path')
     args = parser.parse_args()
     
-    # Define datasets and their configurations
+    # Datasets documented in the README benchmark table.
+    # `lock_cols` = lossless (strings, IDs, timestamps, categoricals).
+    # `residual_cols` = columns where lossy quantization is NOT acceptable
+    #                    and exact reconstruction is needed. These store a
+    #                    per-row float32 delta (4 bytes/row) so they cost a
+    #                    lot of space — keep them minimal.
+    # Every other numeric column is quantized to a 64-entry K-Means codebook
+    # (2 bytes/row + tiny codebook), which is where the compression wins come
+    # from.
     datasets = [
         {
-            'path': Path('data/nyc_taxi_100000.csv'),
-            'lock_cols': ['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime', 'passenger_count'],
-            'residual_cols': ['fare_amount', 'total_amount']
-        },
-        {
+            'label': 'IoT Telemetry',
             'path': Path('data/telemetry_100000.csv'),
             'lock_cols': ['device_id', 'timestamp'],
-            'residual_cols': ['temp_c']
+            'residual_cols': [],
         },
         {
-            'path': Path('data/retail_100000.csv'),
-            'lock_cols': ['order_id', 'timestamp', 'customer_id', 'region', 'category'],
-            'residual_cols': ['unit_price']
+            'label': 'Sensor Physics',
+            'path': Path('data/sensor_physics_100000.csv'),
+            'lock_cols': ['timestamp', 'sensor_id'],
+            'residual_cols': [],
         },
         {
+            'label': 'ML Features',
+            'path': Path('data/ml_features_100000.csv'),
+            'lock_cols': ['timestamp', 'user_id'],
+            'residual_cols': [],
+        },
+        {
+            'label': 'Financial Data',
             'path': Path('data/financial_50000.csv'),
             'lock_cols': ['date', 'ticker'],
-            'residual_cols': ['open', 'high', 'low', 'close', 'market_cap']
-        }
+            'residual_cols': [],
+        },
     ]
     
     results = []

@@ -30,9 +30,12 @@ Thumbs.db
 *.log
 logs/
 
-# Data
+# Data — generated benchmark datasets are gitignored to keep the repo small.
+# Run `python scripts/generate_datasets.py all` to produce them locally.
+# The small `sample.csv` fixture IS committed because the roundtrip test depends on it.
 data/*.csv
 data/*.smp
+!data/sample.csv
 !data/README.md
 
 # Compiled

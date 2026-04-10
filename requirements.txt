@@ -5,5 +5,3 @@ click>=8.1
 msgpack>=1.0
 zstandard>=0.22
 scipy>=1.11
-fastapi>=0.110
-uvicorn>=0.24

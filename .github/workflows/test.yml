@@ -1,0 +1,40 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install sempress and dev dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run tests
+        run: pytest tests/ -v
+
+      - name: Smoke-test benchmark pipeline
+        run: |
+          python scripts/generate_datasets.py telemetry --rows 5000
+          python scripts/generate_datasets.py retail    --rows 5000
+          python scripts/generate_datasets.py financial --rows 2500
+          python scripts/generate_datasets.py sensor_physics --rows 5000
+          python scripts/generate_datasets.py ml_features    --rows 5000
+          python scripts/comprehensive_benchmark.py --out /tmp/bench.json
